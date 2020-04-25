@@ -1,0 +1,10 @@
+4 4
+Minsk-Gomel 34
+Solegorsk-Sizran 90
+Sizran-Vitebsk 90
+Solegorsk-Minsk 38
+Minsk/minskmail.ru
+Gomel/gomel@mail.ru
+Brest/brest@mail.ru
+Vitebsk/vitebsk@mail.ru
+Mogilev/mogilev@mail.ru

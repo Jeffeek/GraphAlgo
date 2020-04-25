@@ -1,0 +1,20 @@
+﻿  Graph.cpp
+E:\projectsVS\Graph\GraphV.h(32,21): warning C4018: <: несоответствие типов со знаком и без знака
+E:\projectsVS\Graph\GraphV.h(37,21): warning C4018: <: несоответствие типов со знаком и без знака
+E:\projectsVS\Graph\GraphV.h(39,22): warning C4018: <: несоответствие типов со знаком и без знака
+E:\projectsVS\Graph\GraphV.h(90,21): warning C4018: <: несоответствие типов со знаком и без знака
+E:\projectsVS\Graph\GraphV.h(127,22): warning C4018: <: несоответствие типов со знаком и без знака
+E:\projectsVS\Graph\GraphV.h(174,22): warning C4018: <: несоответствие типов со знаком и без знака
+E:\projectsVS\Graph\GraphV.h(185,11): warning C4018: <: несоответствие типов со знаком и без знака
+E:\projectsVS\Graph\Graph.cpp(14,1): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+E:\projectsVS\Graph\Graph.cpp(165,17): warning C4129: .: неизвестная escape-последовательность
+  GraphV.cpp
+E:\projectsVS\Graph\GraphV.h(32,21): warning C4018: <: несоответствие типов со знаком и без знака
+E:\projectsVS\Graph\GraphV.h(37,21): warning C4018: <: несоответствие типов со знаком и без знака
+E:\projectsVS\Graph\GraphV.h(39,22): warning C4018: <: несоответствие типов со знаком и без знака
+E:\projectsVS\Graph\GraphV.h(90,21): warning C4018: <: несоответствие типов со знаком и без знака
+E:\projectsVS\Graph\GraphV.h(127,22): warning C4018: <: несоответствие типов со знаком и без знака
+E:\projectsVS\Graph\GraphV.h(174,22): warning C4018: <: несоответствие типов со знаком и без знака
+E:\projectsVS\Graph\GraphV.h(185,11): warning C4018: <: несоответствие типов со знаком и без знака
+  Создание кода...
+  Graph.vcxproj -> E:\projectsVS\Graph\Debug\Graph.exe

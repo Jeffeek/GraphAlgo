@@ -1,0 +1,2 @@
+E:\projectsVS\Graph\Debug\Graph.exe
+E:\projectsVS\Graph\Debug\Graph.pdb
