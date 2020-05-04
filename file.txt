@@ -1,10 +1,9 @@
-4 4
+5 5
 Minsk-Gomel 34
 Solegorsk-Sizran 90
 Sizran-Vitebsk 90
 Solegorsk-Minsk 38
-Minsk/minskmail.ru
+Minsk-Moscow 12
+Minsk/minsk@mail.ru
 Gomel/gomel@mail.ru
-Brest/brest@mail.ru
-Vitebsk/vitebsk@mail.ru
-Mogilev/mogilev@mail.ru
+Vitebsk/vitebsk@yamail.ru

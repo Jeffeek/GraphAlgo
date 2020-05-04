@@ -1,0 +1,22 @@
+В городе Solegorsk нет емэйла
+В городе Sizran нет емэйла
+В городе Moscow нет емэйла
+
+Самый популярный email: @mail.ru
+
+Minsk : minsk@mail.ru
+Gomel : gomel@mail.ru
+Vitebsk : vitebsk@mail.ru
+0	34	38	0	0	12	
+34	0	0	0	0	0	
+38	0	0	90	0	0	
+0	0	90	0	90	0	
+0	0	0	90	0	0	
+12	0	0	0	0	0	
+38
+Путь от Sizran к Minsk: 
+Sizran->Solegorsk->Minsk
+Вес: 128
+Путь от Sizran к Minsk: 
+Sizran->Solegorsk->Minsk
+Вес: 128

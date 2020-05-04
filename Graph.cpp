@@ -140,7 +140,8 @@ void main()
         }
         countOfRoads--;
     }
-
+    //file2.close();
+    fstream file_output("output.txt");
     while (getline(file2, line))
     {
         istringstream stream(line);
@@ -168,17 +169,90 @@ void main()
         if (graph.Vertexes[i].GetEmail() == "")
         {
             cout << "В городе " << graph.Vertexes[i].GetName() << " нет емэйла\n";
+            file_output << "В городе " << graph.Vertexes[i].GetName() << " нет емэйла\n";
         }
         else
         {
             if (!regex_match(graph.Vertexes[i].GetEmail(), email))
             {
                 cout << "\nВ городе " << graph.Vertexes[i].GetName() << " неправильно введен емэйл! : " << graph.Vertexes[i].GetEmail() << endl;
+                file_output << "\nВ городе " << graph.Vertexes[i].GetName() << " неправильно введен емэйл! : " << graph.Vertexes[i].GetEmail() << "\n";
             }
         }
     }
 
-    cout << "Введите начальную точку: ";
+    for (int i = 0; i < graph.VertexCount(); i++)
+    {
+        if (graph.Vertexes[i].GetEmail() != "" && strrchr(graph.Vertexes[i].GetEmail().c_str(), '@') != NULL)
+        {
+            string Server = "";
+            for (int j = 0; j < graph.Vertexes[i].GetEmail().size(); j++)
+            {
+                if (graph.Vertexes[i].GetEmail()[j] == '@')
+                {
+                    for (int k = j; k < graph.Vertexes[i].GetEmail().size(); k++)
+                    {
+                        Server += graph.Vertexes[i].GetEmail()[k];
+                    }
+                    graph.Vertexes[i].SetServer(Server);
+                    break;
+                }
+            }
+        }
+    }
+    string PopularEmail;
+    vector<string>SERVERS;
+    for (int i = 0; i < graph.VertexCount(); i++)
+    {
+        if (graph.Vertexes[i].GetServer() != "" && find(SERVERS.begin(), SERVERS.end(), graph.Vertexes[i].GetServer()) == SERVERS.end())
+        {
+            SERVERS.push_back(graph.Vertexes[i].GetServer());
+        }
+    }
+
+    int CountOf = 0;
+    for (int i = 0; i < SERVERS.size(); i++)
+    {
+        if (CountOf < count(SERVERS.begin(), SERVERS.end(), SERVERS[i]))
+        {
+            PopularEmail = SERVERS[i];
+            CountOf = count(SERVERS.begin(), SERVERS.end(), SERVERS[i]);
+        }
+    }
+
+    cout << "\nСамый популярный email: " << PopularEmail << "\n";
+    file_output << "\nСамый популярный email: " << PopularEmail << "\n";
+
+    for (int i = 0; i < graph.VertexCount(); i++)
+    {
+        if (graph.Vertexes[i].GetServer() != PopularEmail)
+        {
+            graph.Vertexes[i].SetServer(PopularEmail);
+        }
+    }
+
+    regex kok("@.+");
+    for (int i = 0; i < graph.VertexCount(); i++)
+    {
+        if (graph.Vertexes[i].GetEmail() != "")
+        {
+            string email = graph.Vertexes[i].GetEmail();
+            email = regex_replace(email, kok, PopularEmail);
+            graph.Vertexes[i].SetEmail(email);
+        }
+    }
+
+    for (int i = 0; i < graph.VertexCount(); i++)
+    {
+        if (graph.Vertexes[i].GetEmail() != "" && strrchr(graph.Vertexes[i].GetEmail().c_str(), '@') != NULL)
+        {
+            cout << endl << graph.Vertexes[i].GetName() << " : " << graph.Vertexes[i].GetEmail();
+            file_output << "\n" << graph.Vertexes[i].GetName() << " : " << graph.Vertexes[i].GetEmail();
+        }
+    }
+
+    file_output << "\n";
+    cout << "\nВведите начальную точку: ";
     string start;
     cin >> start;
     ptr = -1;
@@ -194,6 +268,8 @@ void main()
     if (ptr == -1)
     {
         cout << "Нет такого города";
+        file_output << "Нет такого города\n";
+        return;
     }
     else
     {
@@ -218,10 +294,13 @@ void main()
         for (int j = 0; j < graph.VertexCount(); j++)
         {
             cout << matrix[i][j] << "\t";
+            file_output << matrix[i][j] << "\t";
         }
+        file_output << "\n";
         cout << endl;
     }
 
+    file_output.close();
     graph.Deixtra(graph.Vertexes[ptr], graph.Vertexes[indexOfMinsk]);
 }
 

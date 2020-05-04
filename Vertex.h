@@ -7,8 +7,19 @@ private:
 	int Number;
 	string Name;
 	string Email = "";
+	string Server = "";
 public:
 	Vertex() {};
+
+	void SetServer(string server)
+	{
+		Server = server;
+	}
+
+	string GetServer()
+	{
+		return Server;
+	}
 
 	Vertex(int number)
 	{

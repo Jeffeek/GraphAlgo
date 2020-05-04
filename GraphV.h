@@ -5,6 +5,7 @@
 #include <string>
 #include <algorithm>
 #include <queue>
+#include <fstream>
 #include <iostream>
 #include <boost\algorithm\string.hpp>
 using namespace std;
@@ -127,58 +128,68 @@ private:
 public:
 	void Deixtra(Vertex start, Vertex finish)
 	{
-		int v = start.GetNumber();
-		int t = finish.GetNumber();
+		int StartNum = start.GetNumber();
+		int FinishNum = finish.GetNumber();
 		int WEIGHT = 0;
-		int m = VertexCount();
+		int CountOfVertex = VertexCount();
 		const int INF = 1000000000;
-		vector<int> d(VertexCount(), INF);
-		d[v] = 0;
-		vector<int> p(VertexCount(), -1);
+		vector<int> Weights(VertexCount(), INF);
+		Weights[StartNum] = 0;
+		vector<int> Visited(VertexCount(), -1);
 		for (;;) 
 		{
-			bool any = false;
+			bool flagAny = false;
 			for (int j = 0; j < EdgeCount(); ++j)
-				if (d[Edges[j].GetFrom().GetNumber()] < INF) 
+				if (Weights[Edges[j].GetFrom().GetNumber()] < INF) 
 				{
-					if (d[Edges[j].GetTo().GetNumber()] > d[Edges[j].GetFrom().GetNumber()] + Edges[j].GetWeight())
+					if (Weights[Edges[j].GetTo().GetNumber()] > Weights[Edges[j].GetFrom().GetNumber()] + Edges[j].GetWeight())
 					{
-						d[Edges[j].GetTo().GetNumber()] = d[Edges[j].GetFrom().GetNumber()] + Edges[j].GetWeight();
-						p[Edges[j].GetTo().GetNumber()] = Edges[j].GetFrom().GetNumber();
-						any = true;
+						Weights[Edges[j].GetTo().GetNumber()] = Weights[Edges[j].GetFrom().GetNumber()] + Edges[j].GetWeight();
+						Visited[Edges[j].GetTo().GetNumber()] = Edges[j].GetFrom().GetNumber();
+						flagAny = true;
 					}
 				}
 
-			if (!any)  
+			if (!flagAny)  
 				break;
 		}
 
-		if (d[t] == INF)
-			cout << "Пути нет с " << Vertexes[v].GetName() << " к " << Vertexes[t].GetName() << ".";
+		fstream file_output("output.txt", ios::app);
+		if (Weights[FinishNum] == INF)
+		{
+			cout << "Пути нет с " << Vertexes[StartNum].GetName() << " к " << Vertexes[FinishNum].GetName() << ".";
+			file_output << "Пути нет с " << Vertexes[StartNum].GetName() << " к " << Vertexes[FinishNum].GetName() << ".";
+			file_output.close();
+		}
 		else {
-			vector<int> path;
-			for (int cur = t; cur != -1; cur = p[cur])
-				path.push_back(cur);
-			reverse(path.begin(), path.end());
-			path.push_back(0);
-			cout << "Путь от " << Vertexes[v].GetName() << " к " << Vertexes[t].GetName() << ": ";
-			for (int i = 0; i < path.size() - 1; i++)
+			vector<int> PathTo;
+			for (int CurrentVertex = FinishNum; CurrentVertex != -1; CurrentVertex = Visited[CurrentVertex])
+				PathTo.push_back(CurrentVertex);
+			reverse(PathTo.begin(), PathTo.end());
+			PathTo.push_back(0);
+			cout << "Путь от " << Vertexes[StartNum].GetName() << " к " << Vertexes[FinishNum].GetName() << ": ";
+			file_output << "Путь от " << Vertexes[StartNum].GetName() << " к " << Vertexes[FinishNum].GetName() << ": \n";
+			for (int i = 0; i < PathTo.size() - 1; i++)
 			{
 				for (int j = 0; j < EdgeCount(); j++)
 				{
-					if (Edges[j].GetFrom().GetName() == Vertexes[path[i]].GetName() && Edges[j].GetTo().GetName() == Vertexes[path[i + 1]].GetName())
+					if (Edges[j].GetFrom().GetName() == Vertexes[PathTo[i]].GetName() && Edges[j].GetTo().GetName() == Vertexes[PathTo[i + 1]].GetName())
 					{
 						WEIGHT += Edges[j].GetWeight();
 						break;
 					}
 				}
-				cout << Vertexes[path[i]].GetName();
-				if (i < path.size() - 2)
+				cout << Vertexes[PathTo[i]].GetName();
+				file_output << Vertexes[PathTo[i]].GetName();
+				if (i < PathTo.size() - 2)
 				{
 					cout << "->";
+					file_output << "->";
 				}
 			}
-			cout << "\nВес: " <<  WEIGHT;
+			cout << "\nВес: " <<  WEIGHT << endl;
+			file_output << "\nВес: " << WEIGHT << "\n";
+			file_output.close();
 		}
 	}
 };
