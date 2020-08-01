@@ -1,63 +1,80 @@
 #pragma once
 #include <string>
 using namespace std;
+template <typename T>
+/// <summary>
+/// class of vertex in graph
+/// </summary>
+/// <typeparam name="T">any type</typeparam>
 class Vertex
 {
 private:
-	int Number;
-	string Name;
-	string Email = "";
-	string Server = "";
+	/// <summary>
+	/// data
+	/// </summary>
+	T Data;
+	/// <summary>
+	/// id for vertex
+	/// </summary>
+	int Number = 1;
 public:
-	Vertex() {};
-
-	void SetServer(string server)
+	/// <summary>
+	/// constructor for initializing
+	/// </summary>
+	/// <returns></returns>
+	Vertex()
 	{
-		Server = server;
-	}
+		
+	};
 
-	string GetServer()
-	{
-		return Server;
-	}
-
+	/// <summary>
+	/// constructor with number(id) of this vertex
+	/// </summary>
+	/// <param name="number">id of this vertex</param>
 	Vertex(int number)
 	{
 		Number = number;
 	}
 
-	string GetEmail()
+	/// <summary>
+	/// setter for Data of this vertex
+	/// </summary>
+	/// <param name="data"></param>
+	void SetData(T data)
 	{
-		return Email;
+		Data = data;
 	}
 
-	void SetEmail(string email)
+	/// <summary>
+	/// getter for Data of this vertex
+	/// </summary>
+	/// <returns></returns>
+	T GetData()
 	{
-		Email = email;
+		return Data;
 	}
 
-	int GetNumber()
+	/// <summary>
+	/// getter for number(id)
+	/// </summary>
+	/// <returns>Number</returns>
+	int GetNumber() const
 	{
 		return Number;
 	}
+
+	/// <summary>
+	/// setter for number(not recommended)
+	/// </summary>
+	/// <param name="number"></param>
 	void SetNumber(int number)
 	{
 		Number = number;
 	}
 
-	string GetName()
+	string ToString() const
 	{
-		return Name;
-	}
-
-	void SetName(string name)
-	{
-		Name = name;
-	}
-
-	string ToString()
-	{
-		return (char*)Number;
+		return to_string(Number);
 	}
 };
 

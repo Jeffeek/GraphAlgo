@@ -2,31 +2,46 @@
 #include <vector>
 #include "Vertex.h"
 #include "Edge.h"
-#include <string>
 #include <algorithm>
-#include <queue>
-#include <fstream>
 #include <iostream>
-#include <boost\algorithm\string.hpp>
 using namespace std;
+/// <summary>
+/// class of Graph and algorithms for it
+/// </summary>
+template <typename T>
 class GraphV
 {
 private:
+	/// <summary>
+	/// collection of vertexes of this graph
+	/// </summary>
+	vector<Vertex<T>> Vertexes;
+	/// <summary>
+	/// collection of edges of this graph
+	/// </summary>
+	vector<Edge<T>> Edges;
 public:
-	vector<Vertex> Vertexes;
-	vector<Edge> Edges;
-
-
-	int VertexCount()
+	/// <summary>
+	/// method for returning a vertex count
+	/// </summary>
+	/// <returns>Vertexes.size();</returns>
+	int VertexCount() const
 	{
 		return Vertexes.size();
 	}
-
-	int EdgeCount()
+	/// <summary>
+	/// method for returning a edges count
+	/// </summary>
+	/// <returns>Edges.size()</returns>
+	int EdgeCount() const
 	{
 		return Edges.size();
 	}
 
+	/// <summary>
+	/// method for getting matrix for this graph
+	/// </summary>
+	/// <returns>matrix(int**)</returns>
 	int** GetMatrix()
 	{
 		int** matrix = new int* [Vertexes.size()];
@@ -45,30 +60,43 @@ public:
 
 		for (auto edge : Edges)
 		{
-			auto row = edge.GetFrom().GetNumber();
-			auto column = edge.GetTo().GetNumber();
+			const auto row = edge.GetFrom().GetNumber();
+			const auto column = edge.GetTo().GetNumber();
 
 			matrix[row][column] = edge.GetWeight();
 		}
 		return matrix;
 	}
 
-
-
-	void AddVertex(Vertex vertex)
+	/// <summary>
+	/// method for adding a new vertex to graph
+	/// </summary>
+	/// <param name="vertex">new vertex</param>
+	void AddVertex(Vertex<T> vertex)
 	{
 		Vertexes.push_back(vertex);
 	}
 
-	void AddEdge(Vertex from, Vertex to, int weight = 1)
+	/// <summary>
+	/// method for adding a new edge between two vertexes
+	/// </summary>
+	/// <param name="from">vertex FROM</param>
+	/// <param name="to">vertex TO</param>
+	/// <param name="weight">weight between vertexes</param>
+	void AddEdge(Vertex<T> from, Vertex<T> to, int weight = 1)
 	{
-		Edge edge(from, to, weight);
+		Edge<T> edge(from, to, weight);
 		Edges.push_back(edge);
 	}
 
-	vector<Vertex> GetVertexList(Vertex vertex)
+	/// <summary>
+	/// getting a vector of vertexes witch are connected to given vertex
+	/// </summary>
+	/// <param name="vertex"></param>
+	/// <returns></returns>
+	vector<Vertex<T>> GetVertexList(Vertex<T> vertex)
 	{
-		vector<Vertex> result;
+		vector<Vertex<T>> result;
 
 		for (auto edge : Edges)
 		{
@@ -80,14 +108,20 @@ public:
 		return result;
 	}
 
-	//есть ли путь из старт в финиш
-	bool Wave(Vertex start, Vertex finish)
+
+	/// <summary>
+	/// method which is show is there a way from one vertex to another
+	/// </summary>
+	/// <param name="start">start vertex</param>
+	/// <param name="finish">finish vertex</param>
+	/// <returns>true/false</returns>
+	bool Wave(Vertex<T> start, Vertex<T> finish)
 	{
-		vector<Vertex>list;
+		vector<Vertex<T>>list;
 		int JustForCast = 0;
 		int weight = 0;
 		list.push_back(start);
-		cout << "\nПуть: \n";
+		cout << "\nThe way: \n";
 		for (int i = 0; i < list.size(); i++)
 		{
 			auto vertex = list[i];
@@ -102,7 +136,7 @@ public:
 		if (CheckForAll(list, finish))
 		{
 			cout << finish.GetName();
-			cout << "\nВес: " << weight << endl;
+			cout << "\nWeight: " << weight << endl;
 			return true;
 		}
 		else
@@ -112,26 +146,35 @@ public:
 	}
 
 private:
-	//проверка того, есть ли элемент в списке вершин
-		bool CheckForAll(vector<Vertex>V, Vertex X)
+		/// <summary>
+		/// method for checking os there a vertex inside of given vector of vertexes
+		/// </summary>
+		/// <param name="V"></param>
+		/// <param name="X"></param>
+		/// <returns></returns>
+	bool CheckForAll(vector<Vertex<T>> V, Vertex<T> X)
+	{
+		bool Check = false;
+		for (int i = 0; i < V.size(); i++)
 		{
-			bool Check = false;
-			for (int i = 0; i < V.size(); i++)
+			if (V[i].GetNumber() == X.GetNumber())
 			{
-				if (V[i].GetNumber() == X.GetNumber())
-				{
-					Check = true;
-				}
+				Check = true;
 			}
-			return Check;
 		}
+		return Check;
+	}
 public:
-	void Deixtra(Vertex start, Vertex finish)
+	/// <summary>
+	/// Deixtra's algorithm
+	/// </summary>
+	/// <param name="start">start vertex</param>
+	/// <param name="finish">finish vertex</param>
+	void Deixtra(Vertex<T> start, Vertex<T> finish)
 	{
 		int StartNum = start.GetNumber();
 		int FinishNum = finish.GetNumber();
 		int WEIGHT = 0;
-		int CountOfVertex = VertexCount();
 		const int INF = 1000000000;
 		vector<int> Weights(VertexCount(), INF);
 		Weights[StartNum] = 0;
@@ -154,42 +197,36 @@ public:
 				break;
 		}
 
-		fstream file_output("output.txt", ios::app);
 		if (Weights[FinishNum] == INF)
 		{
-			cout << "Пути нет с " << Vertexes[StartNum].GetName() << " к " << Vertexes[FinishNum].GetName() << ".";
-			file_output << "Пути нет с " << Vertexes[StartNum].GetName() << " к " << Vertexes[FinishNum].GetName() << ".";
-			file_output.close();
+			//if there is no path from start to finish
+			return;
 		}
-		else {
+		else 
+		{
 			vector<int> PathTo;
 			for (int CurrentVertex = FinishNum; CurrentVertex != -1; CurrentVertex = Visited[CurrentVertex])
 				PathTo.push_back(CurrentVertex);
 			reverse(PathTo.begin(), PathTo.end());
 			PathTo.push_back(0);
-			cout << "Путь от " << Vertexes[StartNum].GetName() << " к " << Vertexes[FinishNum].GetName() << ": ";
-			file_output << "Путь от " << Vertexes[StartNum].GetName() << " к " << Vertexes[FinishNum].GetName() << ": \n";
+			cout << "The way from " << Vertexes[StartNum].GetNumber() << " to " << Vertexes[FinishNum].GetNumber()<< ": ";
 			for (int i = 0; i < PathTo.size() - 1; i++)
 			{
 				for (int j = 0; j < EdgeCount(); j++)
 				{
-					if (Edges[j].GetFrom().GetName() == Vertexes[PathTo[i]].GetName() && Edges[j].GetTo().GetName() == Vertexes[PathTo[i + 1]].GetName())
+					if (Edges[j].GetFrom().GetNumber() == Vertexes[PathTo[i]].GetNumber() && Edges[j].GetTo().GetNumber() == Vertexes[PathTo[i + 1]].GetNumber())
 					{
 						WEIGHT += Edges[j].GetWeight();
 						break;
 					}
 				}
 				cout << Vertexes[PathTo[i]].GetName();
-				file_output << Vertexes[PathTo[i]].GetName();
 				if (i < PathTo.size() - 2)
 				{
 					cout << "->";
-					file_output << "->";
 				}
 			}
-			cout << "\nВес: " <<  WEIGHT << endl;
-			file_output << "\nВес: " << WEIGHT << "\n";
-			file_output.close();
+			cout << "\nWeight: " <<  WEIGHT << endl;
 		}
 	}
 };

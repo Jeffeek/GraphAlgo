@@ -1,2 +1,4 @@
 E:\projectsVS\Graph\Debug\Graph.exe
 E:\projectsVS\Graph\Debug\Graph.pdb
+E:\projectsVS\GitHub\GraphAlgo\Debug\Graph.exe
+E:\projectsVS\GitHub\GraphAlgo\Debug\Graph.pdb
