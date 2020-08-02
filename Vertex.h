@@ -16,7 +16,7 @@ private:
 	/// <summary>
 	/// id for vertex
 	/// </summary>
-	int Number = 1;
+	int Number = -1;
 public:
 	/// <summary>
 	/// constructor for initializing
@@ -34,6 +34,12 @@ public:
 	Vertex(int number)
 	{
 		Number = number;
+	}
+
+	Vertex(int number, T data)
+	{
+		Number = number;
+		Data = data;
 	}
 
 	/// <summary>
@@ -76,5 +82,6 @@ public:
 	{
 		return to_string(Number);
 	}
+
 };
 

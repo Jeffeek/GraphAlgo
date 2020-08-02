@@ -71,10 +71,9 @@ public:
 	/// <summary>
 	/// method for adding a new vertex to graph
 	/// </summary>
-	/// <param name="vertex">new vertex</param>
-	void AddVertex(Vertex<T> vertex)
+	void AddVertex(T data)
 	{
-		Vertexes.push_back(vertex);
+		Vertexes.push_back(*new Vertex<T>(VertexCount(), data));
 	}
 
 	/// <summary>
@@ -85,8 +84,16 @@ public:
 	/// <param name="weight">weight between vertexes</param>
 	void AddEdge(Vertex<T> from, Vertex<T> to, int weight = 1)
 	{
-		Edge<T> edge(from, to, weight);
-		Edges.push_back(edge);
+		Edges.push_back(*new Edge<T>(from, to, weight));
+	}
+
+	Vertex<T> FindVertex(int number)
+	{
+		if (number >= VertexCount() || number < 0)
+		{
+			throw exception("Bad number");
+		}
+		return Vertexes[number];
 	}
 
 	/// <summary>
@@ -108,7 +115,6 @@ public:
 		return result;
 	}
 
-
 	/// <summary>
 	/// method which is show is there a way from one vertex to another
 	/// </summary>
@@ -118,8 +124,6 @@ public:
 	bool Wave(Vertex<T> start, Vertex<T> finish)
 	{
 		vector<Vertex<T>>list;
-		int JustForCast = 0;
-		int weight = 0;
 		list.push_back(start);
 		cout << "\nThe way: \n";
 		for (int i = 0; i < list.size(); i++)
@@ -135,8 +139,7 @@ public:
 		}
 		if (CheckForAll(list, finish))
 		{
-			cout << finish.GetName();
-			cout << "\nWeight: " << weight << endl;
+			//cout << finish.GetNumber();
 			return true;
 		}
 		else
@@ -164,6 +167,9 @@ private:
 		}
 		return Check;
 	}
+
+
+	
 public:
 	/// <summary>
 	/// Deixtra's algorithm
@@ -220,7 +226,7 @@ public:
 						break;
 					}
 				}
-				cout << Vertexes[PathTo[i]].GetName();
+				cout << Vertexes[PathTo[i]].GetNumber();
 				if (i < PathTo.size() - 2)
 				{
 					cout << "->";

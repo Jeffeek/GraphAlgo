@@ -1,5 +1,40 @@
 ﻿  Graph.cpp
 E:\projectsVS\GitHub\GraphAlgo\Graph.cpp(6,1): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+E:\projectsVS\GitHub\GraphAlgo\GraphV.h(221,2): warning C4018: <: несоответствие типов со знаком и без знака
+E:\projectsVS\GitHub\GraphAlgo\GraphV.h(182): message : во время компиляции функции-члена класс шаблон "void GraphV<int>::Deixtra(Vertex<T>,Vertex<T>)"
+          with
+          [
+              T=int
+          ]
+E:\projectsVS\GitHub\GraphAlgo\Graph.cpp(12): message : выполняется компиляция ссылки на экземпляр шаблон функции "void GraphV<int>::Deixtra(Vertex<T>,Vertex<T>)"
+          with
+          [
+              T=int
+          ]
+E:\projectsVS\GitHub\GraphAlgo\Graph.cpp(8): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "GraphV<int>"
+E:\projectsVS\GitHub\GraphAlgo\GraphV.h(232,11): warning C4018: <: несоответствие типов со знаком и без знака
+E:\projectsVS\GitHub\GraphAlgo\GraphV.h(130,2): warning C4018: <: несоответствие типов со знаком и без знака
+E:\projectsVS\GitHub\GraphAlgo\GraphV.h(125): message : во время компиляции функции-члена класс шаблон "bool GraphV<int>::Wave(Vertex<T>,Vertex<T>)"
+          with
+          [
+              T=int
+          ]
+E:\projectsVS\GitHub\GraphAlgo\Graph.cpp(13): message : выполняется компиляция ссылки на экземпляр шаблон функции "bool GraphV<int>::Wave(Vertex<T>,Vertex<T>)"
+          with
+          [
+              T=int
+          ]
+E:\projectsVS\GitHub\GraphAlgo\GraphV.h(163,2): warning C4018: <: несоответствие типов со знаком и без знака
+E:\projectsVS\GitHub\GraphAlgo\GraphV.h(161): message : во время компиляции функции-члена класс шаблон "bool GraphV<int>::CheckForAll(std::vector<Vertex<T>,std::allocator<Vertex<T>>>,Vertex<T>)"
+          with
+          [
+              T=int
+          ]
+E:\projectsVS\GitHub\GraphAlgo\GraphV.h(135): message : выполняется компиляция ссылки на экземпляр шаблон функции "bool GraphV<int>::CheckForAll(std::vector<Vertex<T>,std::allocator<Vertex<T>>>,Vertex<T>)"
+          with
+          [
+              T=int
+          ]
   GraphV.cpp
   Vertex.cpp
   Создание кода...
